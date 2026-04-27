@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrderTrackingRouteImport } from './routes/order.tracking'
+import { Route as AdminKanbanRouteImport } from './routes/admin.kanban'
 
 const CartRoute = CartRouteImport.update({
   id: '/cart',
@@ -28,34 +29,43 @@ const OrderTrackingRoute = OrderTrackingRouteImport.update({
   path: '/order/tracking',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminKanbanRoute = AdminKanbanRouteImport.update({
+  id: '/admin/kanban',
+  path: '/admin/kanban',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
+  '/admin/kanban': typeof AdminKanbanRoute
   '/order/tracking': typeof OrderTrackingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
+  '/admin/kanban': typeof AdminKanbanRoute
   '/order/tracking': typeof OrderTrackingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
+  '/admin/kanban': typeof AdminKanbanRoute
   '/order/tracking': typeof OrderTrackingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cart' | '/order/tracking'
+  fullPaths: '/' | '/cart' | '/admin/kanban' | '/order/tracking'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cart' | '/order/tracking'
-  id: '__root__' | '/' | '/cart' | '/order/tracking'
+  to: '/' | '/cart' | '/admin/kanban' | '/order/tracking'
+  id: '__root__' | '/' | '/cart' | '/admin/kanban' | '/order/tracking'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CartRoute: typeof CartRoute
+  AdminKanbanRoute: typeof AdminKanbanRoute
   OrderTrackingRoute: typeof OrderTrackingRoute
 }
 
@@ -82,12 +92,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrderTrackingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/kanban': {
+      id: '/admin/kanban'
+      path: '/admin/kanban'
+      fullPath: '/admin/kanban'
+      preLoaderRoute: typeof AdminKanbanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CartRoute: CartRoute,
+  AdminKanbanRoute: AdminKanbanRoute,
   OrderTrackingRoute: OrderTrackingRoute,
 }
 export const routeTree = rootRouteImport
