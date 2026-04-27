@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ShoppingCart } from "lucide-react";
+import { LayoutGrid, ShoppingCart } from "lucide-react";
 import { useCart, selectCount } from "@/stores/cart";
 import logo from "@/assets/logo.png";
 import { store } from "@/data/menu";
@@ -20,6 +20,14 @@ export function StoreHeader() {
           />
           <span className="font-bold tracking-tight text-foreground">{store.name}</span>
         </Link>
+        <div className="flex items-center gap-2">
+        <Link
+          to="/admin/kanban"
+          aria-label="Painel admin"
+          className="hidden h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-card text-foreground transition-all duration-200 hover:border-primary/40 hover:shadow-[var(--shadow-soft)] sm:flex"
+        >
+          <LayoutGrid className="h-5 w-5" strokeWidth={1.75} />
+        </Link>
         <Link
           to="/cart"
           aria-label={`Abrir carrinho com ${count} itens`}
@@ -32,6 +40,7 @@ export function StoreHeader() {
             </span>
           )}
         </Link>
+        </div>
       </div>
     </header>
   );
